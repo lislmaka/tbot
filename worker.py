@@ -187,7 +187,8 @@ class worker():
         }
 
         self.tbot_api.set_reply_markup(reply_markup)
-        self.tbot_api.send_message("command start")
+        self.tbot_api.send_message(
+            "Выберите интересующий вас вариант дальнейшего развития событий")
 
     # --------------------------------------------------------------------------- #
     #
