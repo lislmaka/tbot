@@ -20,6 +20,8 @@ class tbot_api():
         self.chat_id = None
         self.callback_data = None
         self.reply_markup = None
+        self.command_dict = None
+        self.command_exec = None
 
         self.responce_analysis()
 
@@ -90,6 +92,15 @@ class tbot_api():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
+    def set_bot_commands(self, command_dict, command_exec):
+        """
+        """
+        self.command_dict = command_dict
+        self.command_exec = command_exec
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
     def responce_analysis(self):
         """ 
         Анализ ответа 
@@ -143,3 +154,34 @@ class tbot_api():
         if self.get_text().lower()[0] == '/':
             return True
         return False
+    
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def select_command(self):
+        """
+        Проверяем есть такая команда
+        """
+        command, *params = self.tbot_api.get_text().lower().split(' ')
+        try:
+            if command in self.command_dict:
+                self.command = self.command_dict.get(command)
+                self.command_params = ' '.join(params).strip()
+        except:
+            raise tbot_exception.TbotExceptionInvalidCommand(command=command)                
+        # else:
+        #     self.response_message = 'Нет такой команды *{}*'.format(
+        #         self.tbot_api.get_text())
+        #     self.tbot_api.send_message(self.response_message)    
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def run_command(self):
+        """
+        Проверяем есть такая команда
+        """
+        try:
+            getattr(self.command_exec, self.command)(params=self.command_params)   
+        except:
+            raise
