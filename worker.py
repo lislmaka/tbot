@@ -127,7 +127,7 @@ class worker():
         """
         """
         if self.command:
-            getattr(self.commands, self.command)(params=self.command_params)
+            getattr(self, self.command)(params=self.command_params)
 
     # --------------------------------------------------------------------------- #
     #
