@@ -162,7 +162,7 @@ class tbot_api():
         """
         Проверяем есть такая команда
         """
-        command, *params = self.tbot_api.get_text().lower().split(' ')
+        command, *params = self.get_text().lower().split(' ')
         try:
             if command in self.command_dict:
                 self.command = self.command_dict.get(command)
