@@ -109,7 +109,7 @@ class tbot_api():
         """ 
         Анализ ответа 
         """
-        
+
         if 'message' in self.request_data:
             try:
                 self.set_chat_id(self.request_data['message']['chat']['id'])
@@ -124,6 +124,7 @@ class tbot_api():
                 raise tbot_exception.TbotExceptionNoChatIdKey()
         elif 'callback_query' in self.request_data:
             self.set_chat_id(self.request_data['callback_query']['from']['id'])
+            self.set_text(self.request_data['callback_query']['data'])
             self.set_callback_data(self.request_data['callback_query']['data'])
         else:
             raise tbot_exception.TbotExceptionInvalidRequestData()
