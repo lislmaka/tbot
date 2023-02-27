@@ -80,6 +80,7 @@ class worker():
             '/test': 'command_test',
             '/menu_start': 'command_menu_start',
             '/menu_stop': 'command_menu_stop',
+            '/inline_keyboard': 'command_inline_keyboard',
         }
         command, *params = self.tbot_api.get_text().lower().split(' ')
         if command in command_dict:
@@ -137,6 +138,26 @@ class worker():
         """
         """
         self.tbot_api.send_message("command_test")
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+
+    def command_inline_keyboard(self):
+        """
+        """
+        # {"inline_keyboard": [[{"text":"Visit Unofficed", "url": "http://unofficed.com"}]]}
+
+        reply_markup = {
+            "inline_keyboard": [
+                [
+                    {"text": "Visit Unofficed", "url": "http://unofficed.com"}
+                ]
+            ]
+        }
+
+        self.tbot_api.set_reply_markup(reply_markup)
+        self.tbot_api.send_message("command start")
 
     # --------------------------------------------------------------------------- #
     #
