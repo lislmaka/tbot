@@ -35,7 +35,6 @@ class worker():
 
         self.commands = commands.commands(tbot_api=self.tbot_api)
 
-        # self.check_user_info()
 
     # --------------------------------------------------------------------------- #
     #
