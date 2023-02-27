@@ -12,7 +12,7 @@ class commands():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
-    def command_test(self):
+    def command_test(self, params):
         """
         """
         self.tbot_api.send_message("Test command from commands class")
