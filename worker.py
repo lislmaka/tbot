@@ -21,9 +21,13 @@ class worker():
         self.command_params = None
 
         self.services = services_obj
-        self.tbot_api = tbot_api.tbot_api()
-        self.tbot_api.set_token(self.services.get_config()["tg_token"])
-        self.tbot_api.set_request_data(request_data)
+        self.tbot_api = tbot_api.tbot_api(
+            token=self.services.get_config()["tg_token"],
+            request_data=request_data)
+
+        # self.tbot_api.set_token(self.services.get_config()["tg_token"])
+        # self.tbot_api.set_request_data(request_data)
+
         self.check_user_info()
 
     # --------------------------------------------------------------------------- #
@@ -35,6 +39,8 @@ class worker():
         if self.is_command():
             self.select_command()
             self.run_command()
+        elif self.is_callback():
+            self.callback_action()
         else:
             self.default_action()
 
@@ -99,8 +105,18 @@ class worker():
         Проверить является ли request_message командой
         """
         if self.tbot_api.get_text().lower()[0] == '/':
-            # self.is_command = True
+            return True
 
+        return False
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def is_callback(self):
+        """
+        Проверить является ли request_message командой
+        """
+        if self.tbot_api.callback_data:
             return True
 
         return False
@@ -113,6 +129,16 @@ class worker():
         """
         if self.command:
             getattr(self, self.command)(params=self.command_params)
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def callback_action(self):
+        """ Defaulf action """
+        self.response_message = 'Вы нажали *{}*'.format(
+            self.tbot_api.get_callback_data())
+
+        self.tbot_api.send_message(self.response_message)
 
     # --------------------------------------------------------------------------- #
     #

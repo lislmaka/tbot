@@ -10,31 +10,34 @@ class tbot_api():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
-    def __init__(self):
+    def __init__(self, token, request_data):
         """ Init """
-        self.token = None
-        self.request_data = None
+        self.token = token
+        self.request_data = request_data
         self.reply_markup = {}
         self.api_url = 'https://api.telegram.org/bot{}/{}'
         self.text = None
         self.chat_id = None
+        self.callback_data = None
         self.reply_markup = None
 
-    # --------------------------------------------------------------------------- #
-    #
-    # --------------------------------------------------------------------------- #
-    def set_token(self, token):
-        """ Set token """
-        self.token = token
+        self.responce_analysis()
 
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
-    def set_request_data(self, request_data):
-        """ Set request_data """
-        self.request_data = request_data
-        self.get_text_from_response()
-        self.get_chat_id_from_response()
+    # def set_token(self, token):
+    #     """ Set token """
+    #     self.token = token
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    # def set_request_data(self, request_data):
+    #     """ Set request_data """
+    #     self.request_data = request_data
+    #     self.get_text_from_response()
+    #     self.get_chat_id_from_response()
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
@@ -70,6 +73,22 @@ class tbot_api():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
+    def get_callback_data(self):
+        """
+        """
+        return self.callback_data
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def set_callback_data(self, value):
+        """
+        """
+        self.callback_data = value
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
     def get_reply_markup(self):
         """
         """
@@ -86,38 +105,46 @@ class tbot_api():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
-    def get_chat_id_from_response(self):
-        """ Получаем chat id """
+    def responce_analysis(self):
+        """ 
+        Анализ ответа 
+        """
+        
         if 'message' in self.request_data:
             try:
                 self.set_chat_id(self.request_data['message']['chat']['id'])
+                self.set_text(self.request_data['message']['text'])
             except:
                 raise tbot_exception.TbotExceptionNoChatIdKey()
         elif 'edited_message' in self.request_data:
             try:
                 self.set_chat_id(self.request_data['edited_message']['chat']['id'])
+                self.set_text(self.request_data['edited_message']['text'])
             except:
                 raise tbot_exception.TbotExceptionNoChatIdKey()
+        elif 'callback_query' in self.request_data:
+            self.set_chat_id(self.request_data['callback_query']['from']['id'])
+            self.set_callback_data(self.request_data['callback_query']['data'])
         else:
             raise tbot_exception.TbotExceptionInvalidRequestData()
 
     # --------------------------------------------------------------------------- #
     #
-    # --------------------------------------------------------------------------- #
-    def get_text_from_response(self):
-        """ Получаем отправленный текст """
-        if 'message' in self.request_data:
-            try:
-                self.set_text(self.request_data['message']['text'])
-            except:
-                raise tbot_exception.TbotExceptionNoTextKey()
-        elif 'edited_message' in self.request_data:
-            try:
-                self.set_text(self.request_data['edited_message']['text'])
-            except:
-                raise tbot_exception.TbotExceptionNoTextKey()
-        else:
-            raise tbot_exception.TbotExceptionInvalidRequestData()
+    # # --------------------------------------------------------------------------- #
+    # def get_text_from_response(self):
+    #     """ Получаем отправленный текст """
+    #     if 'message' in self.request_data:
+    #         try:
+    #             self.set_text(self.request_data['message']['text'])
+    #         except:
+    #             raise tbot_exception.TbotExceptionNoTextKey()
+    #     elif 'edited_message' in self.request_data:
+    #         try:
+    #             self.set_text(self.request_data['edited_message']['text'])
+    #         except:
+    #             raise tbot_exception.TbotExceptionNoTextKey()
+    #     else:
+    #         raise tbot_exception.TbotExceptionInvalidRequestData()
 
     # --------------------------------------------------------------------------- #
     #
