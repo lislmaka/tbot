@@ -163,11 +163,11 @@ class tbot_api():
         Проверяем есть такая команда
         """
         command, *params = self.get_text().lower().split(' ')
-        try:
-            if command in self.command_dict:
-                self.command = self.command_dict.get(command)
-                self.command_params = ' '.join(params).strip()
-        except:
+
+        if command in self.command_dict:
+            self.command = self.command_dict.get(command)
+            self.command_params = ' '.join(params).strip()
+        else:
             raise tbot_exception.TbotExceptionInvalidCommand(command=command)                
         # else:
         #     self.response_message = 'Нет такой команды *{}*'.format(
