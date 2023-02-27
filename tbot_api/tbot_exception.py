@@ -8,8 +8,11 @@ class TbotExceptionInvalidCommand(Exception):
     def __init__(self, command, message=None):
         """
         """
-        if not message:
-            message = "Нет такой команды {}".format(command)
+        user_message = message
+        message = "Нет такой команды {}".format(command)
+        if user_message:
+            message = user_message
+            
         super().__init__(message)
 
 # ------------------------------------------------------------------------------- #
