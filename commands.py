@@ -70,9 +70,9 @@ class commands():
         """
         """
         commands = [
-            ["Представьтесь пожалуйста (ФИО)",
-             "Ваша основная специализация"],
-            ["Укажите ваш номер телефона", "Укажите ваш e-mail", "Из какого вы города"]]
+            ["Вариант №1",
+             "Вариант №2"],
+            ["Вариант №3", "Вариант №4", "Вариант №5"]]
 
         reply_markup = {
             "keyboard": [],
@@ -103,16 +103,14 @@ class commands():
     def command_start(self, params):
         """
         """
-        # {"inline_keyboard": [[{"text":"Visit Unofficed", "url": "http://unofficed.com"}]]}
-
         reply_markup = {
             "inline_keyboard": [
                 [
-                    {"text": "Visit Unofficed", "callback_data": "d34"},
-                    {"text": "Visit Unofficed 3", "url": "http://unofficed.com"}
+                    {"text": "Вариант №1", "callback_data": "v1"},
+                    {"text": "Вариант №2", "callback_data": "v2"}
                 ],
                 [
-                    {"text": "Visit Unofficed 1", "url": "http://unofficed.com"}
+                    {"text": "Вариант №3", "callback_data": "v3"}
                 ],
             ]
         }
