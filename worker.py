@@ -143,7 +143,7 @@ class worker():
     #
     # --------------------------------------------------------------------------- #
 
-    def command_inline_keyboard(self):
+    def command_inline_keyboard(self, params):
         """
         """
         # {"inline_keyboard": [[{"text":"Visit Unofficed", "url": "http://unofficed.com"}]]}
