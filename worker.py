@@ -126,9 +126,10 @@ class worker():
     # --------------------------------------------------------------------------- #
     def run_command(self):
         """
+        test
         """
         if self.command:
-            getattr(self, self.command)(params=self.command_params)
+            getattr(self.commands, self.command)(params=self.command_params)
 
     # --------------------------------------------------------------------------- #
     #
