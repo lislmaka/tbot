@@ -16,3 +16,11 @@ class commands():
         """
         """
         self.tbot_api.send_message("command_test")
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def command_inline_keyboard(self):
+        """
+        """
+        self.tbot_api.send_message("command_test1111")
