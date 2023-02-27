@@ -52,7 +52,7 @@ class worker():
                 self.tbot_api.send_message(err.message)    
 
             try:    
-                self.run_command()
+                self.tbot_api.run_command()
             except Exception as err:
                 self.tbot_api.send_message(err.message)
                 
