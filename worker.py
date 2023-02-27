@@ -54,7 +54,7 @@ class worker():
             try:    
                 self.tbot_api.run_command()
             except Exception as err:
-                self.tbot_api.send_message(err.message)
+                self.tbot_api.send_message(str(err))
                 
         elif self.is_callback():
             self.callback_action()
