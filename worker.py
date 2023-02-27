@@ -27,7 +27,7 @@ class worker():
 
         # self.tbot_api.set_token(self.services.get_config()["tg_token"])
         # self.tbot_api.set_request_data(request_data)
-        self.commands = commands.commands(bot_api=self.tbot_api)
+        self.commands = commands.commands(tbot_api=self.tbot_api)
 
         self.check_user_info()
 
