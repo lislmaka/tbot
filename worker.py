@@ -35,9 +35,8 @@ class worker():
 
         self.commands = commands.commands(tbot_api=self.tbot_api)
 
-        self.tbot_api.set_bot_commands(command_dict=command_dict, command_exec=self.commands)
-        
-
+        self.tbot_api.set_bot_commands(
+            command_dict=command_dict, command_exec=self.commands)
 
     # --------------------------------------------------------------------------- #
     #
@@ -49,13 +48,13 @@ class worker():
             try:
                 self.tbot_api.select_command()
             except tbot_exception.TbotExceptionInvalidCommand as err:
-                self.tbot_api.send_message(err.message)    
+                self.tbot_api.send_message(err.message)
 
-            try:    
+            try:
                 self.tbot_api.run_command()
             except Exception as err:
                 self.tbot_api.send_message(str(err))
-                
+
         elif self.is_callback():
             self.callback_action()
         else:
@@ -174,4 +173,3 @@ class worker():
         """
         """
         self.commands.command_echo_server()
-
