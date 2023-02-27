@@ -132,3 +132,14 @@ class tbot_api():
             data["reply_markup"] = json.dumps(self.reply_markup)
 
         requests.post(api_url, data=data)
+
+    # --------------------------------------------------------------------------- #
+    #
+    # --------------------------------------------------------------------------- #
+    def is_command(self):
+        """
+        Проверяем является ли сообщение командой
+        """
+        if self.get_text().lower()[0] == '/':
+            return True
+        return False

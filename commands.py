@@ -56,7 +56,7 @@ class commands():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
-    def echo_server(self):
+    def command_echo_server(self):
         """ Send text response """
         self.response_message = 'Ваш текст *{}*. Перевернутый текст *{}*'.format(
             self.tbot_api.get_text(), self.tbot_api.get_text()[::-1])

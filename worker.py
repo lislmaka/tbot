@@ -18,6 +18,17 @@ class worker():
         self.command_params = None
 
         self.services = services_obj
+
+        command_dict = {
+            '/start': 'command_start',
+            '/stop': 'command_stop',
+            '/password': 'command_password',
+            '/time': 'command_time',
+            '/test': 'command_test',
+            '/keyboard_on': 'command_keyboard_show',
+            '/keyboard_off': 'command_keyboard_hide',
+        }
+
         self.tbot_api = tbot_api.tbot_api(
             token=self.services.get_config()["tg_token"],
             request_data=request_data)
@@ -44,7 +55,8 @@ class worker():
     #
     # --------------------------------------------------------------------------- #
     def check_user_info(self):
-        """ """
+        """ 
+        """
         mydb = MySQLdb.connect(
             host=self.services.get_config()["db"]["host"],
             user=self.services.get_config()["db"]["user"],
@@ -71,7 +83,7 @@ class worker():
     # --------------------------------------------------------------------------- #
     def select_command(self):
         """
-        Проверяем есть такая комманда
+        Проверяем есть такая команда
         """
         command_dict = {
             '/start': 'command_start',
@@ -109,7 +121,7 @@ class worker():
     # --------------------------------------------------------------------------- #
     def is_callback(self):
         """
-        Проверить является ли request_message командой
+        Проверить является ли request callback (inline keyboard)
         """
         if self.tbot_api.callback_data:
             return True
@@ -121,7 +133,7 @@ class worker():
     # --------------------------------------------------------------------------- #
     def run_command(self):
         """
-        test
+        Запускаем команду
         """
         if self.command:
             getattr(self.commands, self.command)(params=self.command_params)
@@ -130,7 +142,8 @@ class worker():
     #
     # --------------------------------------------------------------------------- #
     def callback_action(self):
-        """ Defaulf action """
+        """ 
+        """
         self.response_message = 'Вы нажали *{}*'.format(
             self.tbot_api.get_callback_data())
 
@@ -140,13 +153,15 @@ class worker():
     #
     # --------------------------------------------------------------------------- #
     def default_action(self):
-        """ Defaulf action """
+        """
+        """
         self.echo_server()
 
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
     def echo_server(self):
-        """ Send text response """
-        self.commands.echo_server()
+        """
+        """
+        self.commands.command_echo_server()
 
