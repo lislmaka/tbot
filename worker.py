@@ -47,9 +47,6 @@ class worker():
         if self.tbot_api.is_command():
             try:
                 self.tbot_api.select_command()
-                self.tbot_api.send_message("выбираю команду")
-            # except Exception as err:
-            #     self.tbot_api.send_message(str(err))               
             except tbot_exception.TbotExceptionInvalidCommand as err:
                 self.tbot_api.send_message(err.message)
 
@@ -90,43 +87,43 @@ class worker():
             self.tbot_api.send_message(
                 "User id {} doesn't exist".format(self.tbot_api.get_chat_id()))
 
-    # --------------------------------------------------------------------------- #
-    #
-    # --------------------------------------------------------------------------- #
-    def select_command(self):
-        """
-        Проверяем есть такая команда
-        """
-        command_dict = {
-            '/start': 'command_start',
-            '/stop': 'command_stop',
-            '/password': 'command_password',
-            '/time': 'command_time',
-            '/test': 'command_test',
-            '/keyboard_on': 'command_keyboard_show',
-            '/keyboard_off': 'command_keyboard_hide',
-            # '/inline_keyboard': 'command_inline_keyboard',
-        }
-        command, *params = self.tbot_api.get_text().lower().split(' ')
-        if command in command_dict:
-            self.command = command_dict.get(command)
-            self.command_params = ' '.join(params).strip()
-        else:
-            self.response_message = 'Нет такой команды *{}*'.format(
-                self.tbot_api.get_text())
-            self.tbot_api.send_message(self.response_message)
+    # # --------------------------------------------------------------------------- #
+    # #
+    # # --------------------------------------------------------------------------- #
+    # def select_command(self):
+    #     """
+    #     Проверяем есть такая команда
+    #     """
+    #     command_dict = {
+    #         '/start': 'command_start',
+    #         '/stop': 'command_stop',
+    #         '/password': 'command_password',
+    #         '/time': 'command_time',
+    #         '/test': 'command_test',
+    #         '/keyboard_on': 'command_keyboard_show',
+    #         '/keyboard_off': 'command_keyboard_hide',
+    #         # '/inline_keyboard': 'command_inline_keyboard',
+    #     }
+    #     command, *params = self.tbot_api.get_text().lower().split(' ')
+    #     if command in command_dict:
+    #         self.command = command_dict.get(command)
+    #         self.command_params = ' '.join(params).strip()
+    #     else:
+    #         self.response_message = 'Нет такой команды *{}*'.format(
+    #             self.tbot_api.get_text())
+    #         self.tbot_api.send_message(self.response_message)
 
-    # --------------------------------------------------------------------------- #
-    #
-    # --------------------------------------------------------------------------- #
-    def is_command(self):
-        """
-        Проверить является ли request_message командой
-        """
-        if self.tbot_api.get_text().lower()[0] == '/':
-            return True
+    # # --------------------------------------------------------------------------- #
+    # #
+    # # --------------------------------------------------------------------------- #
+    # def is_command(self):
+    #     """
+    #     Проверить является ли request_message командой
+    #     """
+    #     if self.tbot_api.get_text().lower()[0] == '/':
+    #         return True
 
-        return False
+    #     return False
 
     # --------------------------------------------------------------------------- #
     #
@@ -140,15 +137,15 @@ class worker():
 
         return False
 
-    # --------------------------------------------------------------------------- #
-    #
-    # --------------------------------------------------------------------------- #
-    def run_command(self):
-        """
-        Запускаем команду
-        """
-        if self.command:
-            getattr(self.commands, self.command)(params=self.command_params)
+    # # --------------------------------------------------------------------------- #
+    # #
+    # # --------------------------------------------------------------------------- #
+    # def run_command(self):
+    #     """
+    #     Запускаем команду
+    #     """
+    #     if self.command:
+    #         getattr(self.commands, self.command)(params=self.command_params)
 
     # --------------------------------------------------------------------------- #
     #
