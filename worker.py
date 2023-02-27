@@ -4,7 +4,7 @@ import MySQLdb
 from datetime import datetime
 import tbot_api.tbot_api as tbot_api
 import tbot_api.tbot_exception as tbot_exception
-# import services as services
+import commands
 
 
 # ------------------------------------------------------------------------------- #
@@ -27,6 +27,7 @@ class worker():
 
         # self.tbot_api.set_token(self.services.get_config()["tg_token"])
         # self.tbot_api.set_request_data(request_data)
+        self.commands = commands.commands(bot_api=self.tbot_api)
 
         self.check_user_info()
 
@@ -128,7 +129,7 @@ class worker():
         """
         """
         if self.command:
-            getattr(self, self.command)(params=self.command_params)
+            getattr(self.commands, self.command)(params=self.command_params)
 
     # --------------------------------------------------------------------------- #
     #
