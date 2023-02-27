@@ -26,21 +26,6 @@ class tbot_api():
     # --------------------------------------------------------------------------- #
     #
     # --------------------------------------------------------------------------- #
-    # def set_token(self, token):
-    #     """ Set token """
-    #     self.token = token
-
-    # --------------------------------------------------------------------------- #
-    #
-    # --------------------------------------------------------------------------- #
-    # def set_request_data(self, request_data):
-    #     """ Set request_data """
-    #     self.request_data = request_data
-    #     self.get_text_from_response()
-    #     self.get_chat_id_from_response()
-    # --------------------------------------------------------------------------- #
-    #
-    # --------------------------------------------------------------------------- #
     def get_text(self):
         """
         """
@@ -118,7 +103,8 @@ class tbot_api():
                 raise tbot_exception.TbotExceptionNoChatIdKey()
         elif 'edited_message' in self.request_data:
             try:
-                self.set_chat_id(self.request_data['edited_message']['chat']['id'])
+                self.set_chat_id(
+                    self.request_data['edited_message']['chat']['id'])
                 self.set_text(self.request_data['edited_message']['text'])
             except:
                 raise tbot_exception.TbotExceptionNoChatIdKey()
@@ -128,24 +114,6 @@ class tbot_api():
             self.set_callback_data(self.request_data['callback_query']['data'])
         else:
             raise tbot_exception.TbotExceptionInvalidRequestData()
-
-    # --------------------------------------------------------------------------- #
-    #
-    # # --------------------------------------------------------------------------- #
-    # def get_text_from_response(self):
-    #     """ Получаем отправленный текст """
-    #     if 'message' in self.request_data:
-    #         try:
-    #             self.set_text(self.request_data['message']['text'])
-    #         except:
-    #             raise tbot_exception.TbotExceptionNoTextKey()
-    #     elif 'edited_message' in self.request_data:
-    #         try:
-    #             self.set_text(self.request_data['edited_message']['text'])
-    #         except:
-    #             raise tbot_exception.TbotExceptionNoTextKey()
-    #     else:
-    #         raise tbot_exception.TbotExceptionInvalidRequestData()
 
     # --------------------------------------------------------------------------- #
     #
