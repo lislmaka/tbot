@@ -26,7 +26,7 @@ class worker():
             request_data=request_data)
 
         self.commands = commands.commands(tbot_api=self.tbot_api)
-        self.commands.command_test()
+        self.commands.command_test(params="asdasd")
 
         self.check_user_info()
 
