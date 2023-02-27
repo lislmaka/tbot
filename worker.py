@@ -151,7 +151,7 @@ class worker():
         reply_markup = {
             "inline_keyboard": [
                 [
-                    {"text": "Visit Unofficed", "url": "http://unofficed.com"},
+                    {"text": "Visit Unofficed", "callback_data": "d34"},
                     {"text": "Visit Unofficed 3", "url": "http://unofficed.com"}
                 ],
                 [
