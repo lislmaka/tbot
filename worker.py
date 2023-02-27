@@ -48,6 +48,8 @@ class worker():
             try:
                 self.tbot_api.select_command()
                 self.tbot_api.send_message("выбираю команду")
+            except Exception as err:
+                self.tbot_api.send_message(str(err))               
             except tbot_exception.TbotExceptionInvalidCommand as err:
                 self.tbot_api.send_message(err.message)
 
